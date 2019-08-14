@@ -10,7 +10,7 @@ namespace Zenject.Asteroids
         [SerializeField]
         MeshRenderer _meshRenderer;
 
-#if UNITY_2018
+#if UNITY_2018_1_OR_NEWER
         [SerializeField]
         ParticleSystem _particleSystem;
 #else
@@ -32,7 +32,7 @@ namespace Zenject.Asteroids
             get { return _meshRenderer; }
         }
 
-#if UNITY_2018
+#if UNITY_2018_1_OR_NEWER
         public ParticleSystem ParticleEmitter
         {
             get { return _particleSystem; }

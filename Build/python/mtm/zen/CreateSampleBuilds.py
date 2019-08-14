@@ -199,7 +199,7 @@ def installBindings():
             'TempDir': '[RootDir]/Temp',
             'WebGlTemplate': '[ScriptDir]/web_config_template.xml',
             'OutputRootDir': '[RootDir]/SampleBuilds',
-            'UnityExePath': 'D:/Utils/Unity/Installs/2018.1.0f2/Editor/Unity.exe',
+            'UnityExePath': 'C:/Program Files/Unity/Hub/Editor/2018.1.0f2/Editor/Unity.exe',
             'LogPath': '[BuildDir]/Log.txt',
             'UnityProjectPath': '[RootDir]/UnityProject',
             'MsBuildExePath': 'C:/Windows/Microsoft.NET/Framework/v4.0.30319/msbuild.exe'

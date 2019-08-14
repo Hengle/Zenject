@@ -24,10 +24,10 @@ namespace Zenject.Tests.Injection
             public bool HasInitialized2;
 
             [Inject]
-            public Test1 test1;
+            public Test1 test1 = null;
 
             [Inject]
-            public Test0 test0;
+            public Test0 test0 = null;
 
             Test2 _test2;
 

@@ -71,13 +71,13 @@ namespace Zenject.Tests.Injection
             bool _didPostInjectBase;
 
             [Inject]
-            public static Test0 BaseStaticFieldPublic;
+            public static Test0 BaseStaticFieldPublic = null;
 
             [Inject]
-            static Test0 BaseStaticFieldPrivate;
+            static Test0 BaseStaticFieldPrivate = null;
 
             [Inject]
-            protected static Test0 BaseStaticFieldProtected;
+            protected static Test0 BaseStaticFieldProtected = null;
 
             [Inject]
             public static Test0 BaseStaticPropertyPublic
@@ -102,15 +102,15 @@ namespace Zenject.Tests.Injection
 
             // Instance
             [Inject]
-            public Test0 BaseFieldPublic;
+            public Test0 BaseFieldPublic = null;
 
             [Inject]
-            Test0 BaseFieldPrivate;
+            Test0 BaseFieldPrivate = null;
 
             [Inject]
-            protected readonly Test0 BaseFieldProtected;
+            protected readonly Test0 BaseFieldProtected = null;
 
-            Test0 _basePropertyPublicValue;
+            Test0 _basePropertyPublicValue = null;
 
             [Inject]
             public Test0 BasePropertyPublic
@@ -207,13 +207,13 @@ namespace Zenject.Tests.Injection
             }
 
             [Inject]
-            public static Test0 DerivedStaticFieldPublic;
+            public static Test0 DerivedStaticFieldPublic = null;
 
             [Inject]
-            static Test0 DerivedStaticFieldPrivate;
+            static Test0 DerivedStaticFieldPrivate = null;
 
             [Inject]
-            protected static Test0 DerivedStaticFieldProtected;
+            protected static Test0 DerivedStaticFieldProtected = null;
 
             [Inject]
             public static Test0 DerivedStaticPropertyPublic
@@ -266,13 +266,13 @@ namespace Zenject.Tests.Injection
             }
 
             [Inject]
-            public Test0 DerivedFieldPublic;
+            public Test0 DerivedFieldPublic = null;
 
             [Inject]
-            Test0 DerivedFieldPrivate;
+            Test0 DerivedFieldPrivate = null;
 
             [Inject]
-            protected Test0 DerivedFieldProtected;
+            protected Test0 DerivedFieldProtected = null;
 
             Test0 _derivedPropertyPublicValue;
 

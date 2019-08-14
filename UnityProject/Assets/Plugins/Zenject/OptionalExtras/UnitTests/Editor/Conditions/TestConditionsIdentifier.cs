@@ -22,7 +22,7 @@ namespace Zenject.Tests.Conditions
         class Test2
         {
             [Inject(Id ="foo")]
-            public Test0 name2;
+            public Test0 name2 = null;
         }
 
         [Test]

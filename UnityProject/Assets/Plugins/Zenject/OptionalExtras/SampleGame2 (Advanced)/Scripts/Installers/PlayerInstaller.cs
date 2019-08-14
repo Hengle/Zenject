@@ -6,7 +6,7 @@ namespace Zenject.SpaceFighter
     public class PlayerInstaller : MonoInstaller
     {
         [SerializeField]
-        Settings _settings;
+        Settings _settings = null;
 
         public override void InstallBindings()
         {

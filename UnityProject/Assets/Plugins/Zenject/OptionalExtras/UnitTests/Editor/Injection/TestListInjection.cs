@@ -76,7 +76,7 @@ namespace Zenject.Tests.Injection
         class Test3
         {
             [Inject]
-            public List<string> Values;
+            public List<string> Values = null;
         }
 
         class Test2

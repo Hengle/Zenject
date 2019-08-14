@@ -33,7 +33,9 @@ namespace Zenject.Tests.Injection
         struct Test3
         {
             [Inject]
+#pragma warning disable 649
             public int ValueField;
+#pragma warning restore 649
 
             [Inject]
             public string ValueProperty

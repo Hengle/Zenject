@@ -21,7 +21,7 @@ namespace Zenject.Tests.Other
         class Foo
         {
             [InjectCustom]
-            public Bar BarField;
+            public Bar BarField = null;
 
             public Foo(Bar barParam)
             {

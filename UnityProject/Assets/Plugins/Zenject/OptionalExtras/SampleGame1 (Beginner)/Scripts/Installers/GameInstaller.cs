@@ -6,7 +6,7 @@ namespace Zenject.Asteroids
     public class GameInstaller : MonoInstaller
     {
         [Inject]
-        Settings _settings;
+        Settings _settings = null;
 
         public override void InstallBindings()
         {

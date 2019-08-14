@@ -1,6 +1,41 @@
 
 # <a id="release-notes"></a>Release Notes
 
+## Version 8.0.0 (February 5, 2019)
+
+Minor bug fixes, a few extra bind methods, and one minor breaking api change in SignalBus.
+
+Notable
+- Added new bind methods FromScriptableObject and FromNewScriptableObject bind methods for cases where you already have the ScriptableObject reference at install time
+- Added new subcontainer bind method ByInstanceGetter
+- Bug fix - the inject order was wrong in some rare edge cases (ie. sometimes objects would receive injected parameters that have not themsevles been injected yet)
+- Bug fix - readonly properties were not injectable
+- Added ability to declare signals at runtime after install
+- Fixed playmode tests to work inside builds instead of just in editor
+- Changed SignalBus class to have separate method names for the methods that take an identifier parameter.  Also added the ability to specify the signal type explicitly in Fire and TryFire methods.
+
+Minor
+- Fixed Pool Monitor window to support unity dark theme
+- Changed the visual order of installer types on context to match their execution order
+- Bug fix - classes in the System namespace (ie. Stopwatch) were not able to be created by zenject
+- Fixed minor bugs with validation
+- Fixed warnings in unity 2018 and unity 2019
+- Fixed OnInstantiate method to work properly in cases where you bind multiple types to a new prefab
+- Added UnityEvent versions of the events to SceneContext to allow hooking into it from inspector directly
+- Fixed compile warnings specific to Rider IDE
+
+## Version 6.6.0 (February 5, 2019)
+
+Minor bug fixes and a few minor extra features
+
+- Changed the visual order of installer types on context to match their execution order
+- Bug fix - readonly properties were not injectable
+- Fixed OnInstantiate method to work properly in cases where you bind multiple types to a new prefab
+- Bug fix - classes in the System namespace (ie. Stopwatch) were not able to be created by zenject
+- Added the ability to specify the signal type explicitly in Fire and TryFire methods
+- Fixed some compiler warnings
+- Added new subcontainer bind method ByInstanceGetter
+
 ## Version 7.3.1 (October 20, 2018)
 
 Minor bug fixes

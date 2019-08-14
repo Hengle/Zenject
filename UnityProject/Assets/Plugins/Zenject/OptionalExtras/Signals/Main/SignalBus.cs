@@ -74,7 +74,20 @@ namespace Zenject
             }
         }
 
-        public void Fire<TSignal>(object identifier = null)
+        public void FireId<TSignal>(object identifier, TSignal signal)
+        {
+            // Do this before creating the signal so that it throws if the signal was not declared
+            var declaration = GetDeclaration(typeof(TSignal), identifier, true);
+
+            declaration.Fire(signal);
+        }
+
+        public void Fire<TSignal>(TSignal signal)
+        {
+            FireId<TSignal>(null, signal);
+        }
+
+        public void FireId<TSignal>(object identifier)
         {
             // Do this before creating the signal so that it throws if the signal was not declared
             var declaration = GetDeclaration(typeof(TSignal), identifier, true);
@@ -83,12 +96,36 @@ namespace Zenject
                 (TSignal)Activator.CreateInstance(typeof(TSignal)));
         }
 
-        public void Fire(object signal, object identifier = null)
+        public void Fire<TSignal>()
+        {
+            FireId<TSignal>(null);
+        }
+
+        public void FireId(object identifier, object signal)
         {
             GetDeclaration(signal.GetType(), identifier, true).Fire(signal);
         }
 
-        public void TryFire<TSignal>(object identifier = null)
+        public void Fire(object signal)
+        {
+            FireId(null, signal);
+        }
+
+        public void TryFireId<TSignal>(object identifier, TSignal signal)
+        {
+            var declaration = GetDeclaration(typeof(TSignal), identifier, false);
+            if (declaration != null)
+            {
+                declaration.Fire(signal);
+            }
+        }
+
+        public void TryFire<TSignal>(TSignal signal)
+        {
+            TryFireId<TSignal>(null, signal);
+        }
+
+        public void TryFireId<TSignal>(object identifier)
         {
             var declaration = GetDeclaration(typeof(TSignal), identifier, false);
             if (declaration != null)
@@ -98,7 +135,12 @@ namespace Zenject
             }
         }
 
-        public void TryFire(object signal, object identifier = null)
+        public void TryFire<TSignal>()
+        {
+            TryFireId<TSignal>(null);
+        }
+
+        public void TryFireId(object identifier, object signal)
         {
             var declaration = GetDeclaration(signal.GetType(), identifier, false);
             if (declaration != null)
@@ -107,73 +149,143 @@ namespace Zenject
             }
         }
 
+        public void TryFire(object signal)
+        {
+            TryFireId(null, signal);
+        }
+
 #if ZEN_SIGNALS_ADD_UNIRX
-        public IObservable<TSignal> GetStream<TSignal>(object identifier = null)
+        public IObservable<TSignal> GetStreamId<TSignal>(object identifier)
         {
             return GetStream(typeof(TSignal), identifier).Select(x => (TSignal)x);
         }
 
-        public IObservable<object> GetStream(Type signalType, object identifier = null)
+        public IObservable<TSignal> GetStream<TSignal>()
+        {
+            return GetStreamId<TSignal>(null);
+        }
+
+        public IObservable<object> GetStreamId(Type signalType, object identifier)
         {
             return GetDeclaration(signalType, identifier, true).Stream;
         }
+
+        public IObservable<object> GetStream(Type signalType)
+        {
+            return GetStreamId(signalType, null);
+        }
 #endif
 
-        public void Subscribe<TSignal>(Action callback, object identifier = null)
+        public void SubscribeId<TSignal>(object identifier, Action callback)
         {
             Action<object> wrapperCallback = args => callback();
             SubscribeInternal(typeof(TSignal), identifier, callback, wrapperCallback);
         }
 
-        public void Subscribe<TSignal>(Action<TSignal> callback, object identifier = null)
+        public void Subscribe<TSignal>(Action callback)
+        {
+            SubscribeId<TSignal>(null, callback);
+        }
+
+        public void SubscribeId<TSignal>(object identifier, Action<TSignal> callback)
         {
             Action<object> wrapperCallback = args => callback((TSignal)args);
             SubscribeInternal(typeof(TSignal), identifier, callback, wrapperCallback);
         }
 
-        public void Subscribe(Type signalType, Action<object> callback, object identifier = null)
+        public void Subscribe<TSignal>(Action<TSignal> callback)
+        {
+            SubscribeId<TSignal>(null, callback);
+        }
+
+        public void SubscribeId(Type signalType, object identifier, Action<object> callback)
         {
             SubscribeInternal(signalType, identifier, callback, callback);
         }
 
-        public void Unsubscribe<TSignal>(Action callback, object identifier = null)
+        public void Subscribe(Type signalType, Action<object> callback)
         {
-            Unsubscribe(typeof(TSignal), callback, identifier);
+            SubscribeId(signalType, null, callback);
         }
 
-        public void Unsubscribe(Type signalType, Action callback, object identifier = null)
+        public void UnsubscribeId<TSignal>(object identifier, Action callback)
+        {
+            UnsubscribeId(typeof(TSignal), identifier, callback);
+        }
+
+        public void Unsubscribe<TSignal>(Action callback)
+        {
+            UnsubscribeId<TSignal>(null, callback);
+        }
+
+        public void UnsubscribeId(Type signalType, object identifier, Action callback)
         {
             UnsubscribeInternal(signalType, identifier, callback, true);
         }
 
-        public void Unsubscribe(Type signalType, Action<object> callback, object identifier = null)
+        public void Unsubscribe(Type signalType, Action callback)
+        {
+            UnsubscribeId(signalType, null, callback);
+        }
+
+        public void UnsubscribeId(Type signalType, object identifier, Action<object> callback)
         {
             UnsubscribeInternal(signalType, identifier, callback, true);
         }
 
-        public void Unsubscribe<TSignal>(Action<TSignal> callback, object identifier = null)
+        public void Unsubscribe(Type signalType, Action<object> callback)
+        {
+            UnsubscribeId(signalType, null, callback);
+        }
+
+        public void UnsubscribeId<TSignal>(object identifier, Action<TSignal> callback)
         {
             UnsubscribeInternal(typeof(TSignal), identifier, callback, true);
         }
 
-        public void TryUnsubscribe<TSignal>(Action callback, object identifier = null)
+        public void Unsubscribe<TSignal>(Action<TSignal> callback)
+        {
+            UnsubscribeId<TSignal>(null, callback);
+        }
+
+        public void TryUnsubscribeId<TSignal>(object identifier, Action callback)
         {
             UnsubscribeInternal(typeof(TSignal), identifier, callback, false);
         }
 
-        public void TryUnsubscribe(Type signalType, Action callback, object identifier = null)
+        public void TryUnsubscribe<TSignal>(Action callback)
+        {
+            TryUnsubscribeId<TSignal>(null, callback);
+        }
+
+        public void TryUnsubscribeId(Type signalType, object identifier, Action callback)
         {
             UnsubscribeInternal(signalType, identifier, callback, false);
         }
 
-        public void TryUnsubscribe(Type signalType, Action<object> callback, object identifier = null)
+        public void TryUnsubscribe(Type signalType, Action callback)
+        {
+            TryUnsubscribeId(signalType, null, callback);
+        }
+
+        public void TryUnsubscribeId(Type signalType, object identifier, Action<object> callback)
         {
             UnsubscribeInternal(signalType, identifier, callback, false);
         }
 
-        public void TryUnsubscribe<TSignal>(Action<TSignal> callback, object identifier = null)
+        public void TryUnsubscribe(Type signalType, Action<object> callback)
+        {
+            TryUnsubscribeId(signalType, null, callback);
+        }
+
+        public void TryUnsubscribeId<TSignal>(object identifier, Action<TSignal> callback)
         {
             UnsubscribeInternal(typeof(TSignal), identifier, callback, false);
+        }
+
+        public void TryUnsubscribe<TSignal>(Action<TSignal> callback)
+        {
+            TryUnsubscribeId<TSignal>(null, callback);
         }
 
         void UnsubscribeInternal(Type signalType, object identifier, object token, bool throwIfMissing)

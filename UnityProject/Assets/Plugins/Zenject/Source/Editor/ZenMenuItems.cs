@@ -199,7 +199,7 @@ namespace Zenject.Internal
             {
                 gameObject.AddComponent<ProjectContext>();
 
-#if UNITY_2018_3
+#if UNITY_2018_3_OR_NEWER
                 var prefabObj = PrefabUtility.SaveAsPrefabAsset(gameObject, prefabPath);
 #else
                 var prefabObj = PrefabUtility.ReplacePrefab(gameObject, PrefabUtility.CreateEmptyPrefab(prefabPath));

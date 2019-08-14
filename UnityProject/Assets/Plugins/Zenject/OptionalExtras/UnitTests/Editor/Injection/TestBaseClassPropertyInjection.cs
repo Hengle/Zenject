@@ -16,7 +16,7 @@ namespace Zenject.Tests.Injection
 
         class Test1 : Test3
         {
-            [Inject] protected Test0 val;
+            [Inject] protected Test0 val = null;
 
             public Test0 GetVal()
             {

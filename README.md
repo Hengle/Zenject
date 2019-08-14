@@ -1,19 +1,57 @@
+> ### COMMITMENT TO OPEN SOURCE
 
+
+>We are proud to provide this useful tool to the community and encourage those developing projects to fork from it. To date Zenject has been forked Over 300 times and we love to see the benefit it is deriving for users and support this!
+>
+>Modest Tree’s Zenject is open-sourced in order to support the community and encourage collaborative development. This is clearly licensed with an MIT license to allow a high degree of flexibility and freedom of use.
+>
+We look forward to hearing about the cool projects you are building with Zenject and supporting its use!
+Contact us through github or zenject@modesttree.com.
+
+## <a id="introduction"></a>Upcoming Update
+
+As our Team is looking at Improving and Supporting Zenject, Below is the list of Features and Changes we are planning on applying to Zenject.
+
+* move all pooling functionality into the factories
+    * add Free() to all IFactory types and have the default Free() dispose
+    * change pooling to allow a pooled object to be returned to pool via PoolFactory.Free()
+    * add a PoolHandle struct and IFactory.CreateHandle(), disposing the handle returns object to factory
+    * eliminate all pooling dependancies from the types being pooled
+    * add additional install functions to control pooling via installers rather than by explicit code
+    * PRO: when using PoolHandles, pooling or non-pooling is completely transparent to the consuming types
+    * CON: breaking changes with existing pooling techniques
+>
+* move unity-specific handling out of zenject core and into an additional library
+    * initially zenject was unity-only but now it is now used in standalone .EXE as well
+    * zenject codebase shows many scars from when it was unity-only
+    * eliminate all the #IFDEFs and move unity-specifics to external package
+    * allow building zenject core to DLL, unity-specifics stay as c# in unity project
+    * PRO: reduces compile times in unity
+    * PRO: more usable outside unity, fewer unity-landmines to step on
+    * PRO: far less zenject code to step through when debugging user-code
+    * CON: may require manual updating of some unity scenes and prefabs
+>
+* add dependancy graph resolve support
+
+    * somebody first needs to understand how zenject stores its bindings. I currently do not.
+    * we wana dump all the bindings for a set of scenes/installers to xml or something
+    * an external python or winforms tool allows viewing the binding graph
+    * show each container as a node, bindings are child nodes, draw dependancy links between bindings,this will make finding unnecessary bindings and fixing binding errors a lot easier,eventually we can also add a binding editor and error highlighting for bad bindings
+    * PRO: quality-of-life and general workflow improvement
+    * CON: additional software to maintain
+
+We are sharing this with community to help us prioritize and Find out if there is anything else that the community is looking for in the upcoming release. Looking forward to your feedback - Contact us through github or zenject@modesttree.com.
+##
+>
 <img src="Documentation/Images/ZenjectLogo.png?raw=true" alt="Zenject" width="600px" height="134px"/>
 
 ## Dependency Injection Framework for Unity3D
 
 [![Join the chat at https://gitter.im/Zenject/Lobby](https://badges.gitter.im/Zenject/Lobby.svg)](https://gitter.im/Zenject/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-This project is free - but supported via donations.  If you or your team have found it useful, please consider supporting further development through <a href="https://opencollective.com/zenject">open collective</a> / <a href="https://www.patreon.com/zenject?alert=2">patreon</a> / <a href="https://svermeulen.github.io/DonateToZenject.html">paypal</a>
-
-[![Become as Backer](https://opencollective.com/zenject/tiers/backer.svg?avatarHeight=50)](https://opencollective.com/zenject) [![Become as Sponsor](https://opencollective.com/zenject/tiers/sponsor.svg?avatarHeight=50)](https://opencollective.com/zenject)
-
-If you are looking for the older documentation for Zenject you can find that here:  <a href="https://github.com/modesttree/Zenject/tree/f0dd30ad451dcbc3eb17e636455a6c89b14ad537">Zenject 3.x</a>, <a href="https://github.com/modesttree/Zenject/tree/0b4a15b1e6e680c94fd34a2d7420eb41e320b21b">Zenject 4.x</a>, <a href="https://github.com/modesttree/Zenject/tree/dc019e31dbae09eb53c1638be00f7f002898956c">Zenject 5.x</a>
-
 ## <a id="introduction"></a>Introduction
 
-Zenject is a lightweight highly performant dependency injection framework built specifically to target Unity 3D (however it can be used outside of Unity as well).  It can be used to turn your application into a collection of loosely-coupled parts with highly segmented responsibilities.  Zenject can then glue the parts together in many different configurations to allow you to easily write, re-use, refactor and test your code in a scalable and extremely flexible way.
+Zenject is a lightweight highly performant dependency injection framework built specifically to target Unity 3D (however it can be used outside of Unity as well).  It can be used to turn your application into a collection of loosely-coupled parts with highly segmented responsibilities. Zenject can then glue the parts together in many different configurations to allow you to easily write, re-use, refactor and test your code in a scalable and extremely flexible way.
 
 Tested in Unity 3D on the following platforms: 
 * PC/Mac/Linux
@@ -29,7 +67,7 @@ This project is open source.  You can find the official repository [here](https:
 
 For general troubleshooting / support, please post to [stack overflow](https://stackoverflow.com/questions/ask) using the tag 'zenject', or post in the [zenject google group](https://groups.google.com/forum/#!forum/zenject/)
 
-Or, if you have found a bug, you are also welcome to create an issue on the [github page](https://github.com/modesttree/Zenject), or a pull request if you have a fix / extension.  There is also a [gitter chat](https://gitter.im/Zenject/Lobby) that you can join for real time discussion.  You can also follow [@Zenject](https://twitter.com/Zenject) on twitter for updates.  Finally, you can also email me directly at sfvermeulen@gmail.com
+Or, if you have found a bug, you are also welcome to create an issue on the [github page](https://github.com/modesttree/Zenject), or a pull request if you have a fix / extension.  There is also a [gitter chat](https://gitter.im/Zenject/Lobby) that you can join for real time discussion.  You can also follow [@Zenject](https://twitter.com/Zenject) on twitter for updates.
 
 ## <a id="features"></a>Features
 
@@ -285,7 +323,7 @@ As shown in the above example, DI can be used to easily swap different implement
 
 More important than that is the fact that using a dependency injection framework like Zenject allows you to more easily follow the '[Single Responsibility Principle](http://en.wikipedia.org/wiki/Single_responsibility_principle)'.  By letting Zenject worry about wiring up the classes, the classes themselves can just focus on fulfilling their specific responsibilities.
 
-<a id="overusinginterfaces"></a>Another common mistake that people new to DI make is that they extract interfaces from every class, and use those interfaces everywhere instead of using the class directly.  The goal is to make code more loosely coupled, so it's reasonable to think that being bound to an interface is better than being bound to a concrete class.  However, in most cases the various responsibilities of an application have single, specific classes implementing them, so using interfaces in these cases just adds unnecessary maintenance overhead.  Also, concrete classes already have an interface defined by their public members.  A good rule of thumb instead is to only create interfaces when the class has more than one implementation  (this is known, by the way, as the [Reused Abstraction Principle](http://codemanship.co.uk/parlezuml/blog/?postid=934))
+<a id="overusinginterfaces"></a>Another common mistake that people new to DI make is that they extract interfaces from every class, and use those interfaces everywhere instead of using the class directly.  The goal is to make code more loosely coupled, so it's reasonable to think that being bound to an interface is better than being bound to a concrete class.  However, in most cases the various responsibilities of an application have single, specific classes implementing them, so using interfaces in these cases just adds unnecessary maintenance overhead.  Also, concrete classes already have an interface defined by their public members.  A good rule of thumb instead is to only create interfaces when the class has more than one implementation or in cases where you intend to have multiple implemenations in the future (this is known, by the way, as the [Reused Abstraction Principle](http://codemanship.co.uk/parlezuml/blog/?postid=934))
 
 Other benefits include:
 
@@ -3318,7 +3356,7 @@ See <a href="Documentation/CheatSheet.md">here</a>.
 
 ## <a id="further-help"></a>Further Help
 
-For general troubleshooting / support, please use the [zenject subreddit](http://www.reddit.com/r/zenject) or the [zenject google group](https://groups.google.com/forum/#!forum/zenject/).  If you have found a bug, you are also welcome to create an issue on the [github page](https://github.com/modesttree/Zenject), or a pull request if you have a fix / extension.  You can also follow [@Zenject](https://twitter.com/Zenject) on twitter for updates.  Finally, you can also email me directly at sfvermeulen@gmail.com
+For general troubleshooting / support, please use the [zenject subreddit](http://www.reddit.com/r/zenject) or the [zenject google group](https://groups.google.com/forum/#!forum/zenject/).  If you have found a bug, you are also welcome to create an issue on the [github page](https://github.com/modesttree/Zenject), or a pull request if you have a fix / extension.  You can also follow [@Zenject](https://twitter.com/Zenject) on twitter for updates.
 
 ## <a id="release-notes"></a>Release Notes
 
@@ -3328,7 +3366,7 @@ See <a href="Documentation/ReleaseNotes.md">here</a>.
 
     The MIT License (MIT)
 
-    Copyright (c) 2010-2015 Modest Tree Media  http://www.modesttree.com
+    Copyright (c) 2010-2019 Modest Tree Media Inc. ZENJECT is a trademark of Modest Tree Media Inc..  http://www.modesttree.com
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal

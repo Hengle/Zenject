@@ -6,9 +6,6 @@ using System.Runtime.CompilerServices;
 using ModestTree;
 using Zenject.Internal;
 
-#if !NOT_UNITY3D
-#endif
-
 namespace Zenject
 {
     public delegate InjectTypeInfo ZenTypeInfoGetter();
@@ -79,7 +76,11 @@ namespace Zenject
             }
 #endif
 
+#if UNITY_WSA && ENABLE_DOTNET && !UNITY_EDITOR
+            return type.GetTypeInfo().GetCustomAttribute<ZenjectAllowDuringValidationAttribute>() != null;
+#else
             return type.HasAttribute<ZenjectAllowDuringValidationAttribute>();
+#endif
         }
 
         public static bool HasInfo<T>()

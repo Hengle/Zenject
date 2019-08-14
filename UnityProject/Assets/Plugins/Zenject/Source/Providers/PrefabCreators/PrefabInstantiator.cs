@@ -81,15 +81,13 @@ namespace Zenject
                         "Unexpected arguments provided to prefab instantiator.  Arguments are not allowed if binding multiple components in the same binding");
                 }
 
-                Component targetComponent = null;
-
                 if (_argumentTarget == null || allArgs.IsEmpty())
                 {
                     _container.InjectGameObject(gameObject);
                 }
                 else
                 {
-                    targetComponent = _container.InjectGameObjectForComponentExplicit(
+                    _container.InjectGameObjectForComponentExplicit(
                         gameObject, _argumentTarget, allArgs, context, null);
 
                     Assert.That(allArgs.Count == 0);

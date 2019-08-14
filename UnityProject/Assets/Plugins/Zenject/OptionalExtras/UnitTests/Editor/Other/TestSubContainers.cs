@@ -27,7 +27,7 @@ namespace Zenject.Tests.Other
         class Test1
         {
             [Inject]
-            public Test0 Test;
+            public Test0 Test = null;
         }
 
         [Test]

@@ -47,7 +47,7 @@ namespace Zenject.Asteroids
             var speed = (_ship.Position - _lastPosition).magnitude / Time.deltaTime;
             var speedPx = Mathf.Clamp(speed / _settings.speedForMaxEmisssion, 0.0f, 1.0f);
 
-#if UNITY_2018
+#if UNITY_2018_1_OR_NEWER
             var emission = _ship.ParticleEmitter.emission;
             emission.rateOverTime = _settings.maxEmission * speedPx;
 #else

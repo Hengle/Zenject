@@ -13,7 +13,7 @@ namespace Zenject.Tests.Conditions
         class Test1
         {
             [Inject]
-            public Test0 test0;
+            public Test0 test0 = null;
         }
 
         Test1 _test1;

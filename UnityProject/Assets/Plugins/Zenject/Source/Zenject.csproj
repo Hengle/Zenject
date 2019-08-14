@@ -158,6 +158,7 @@
     <Compile Include="Providers\PoolableMemoryPoolProvider.cs" />
     <Compile Include="Providers\SubContainerCreators\SubContainerCreatorBindInfo.cs" />
     <Compile Include="Providers\SubContainerCreators\SubContainerCreatorByInstance.cs" />
+    <Compile Include="Providers\SubContainerCreators\SubContainerCreatorByInstanceGetter.cs" />
     <Compile Include="Providers\SubContainerCreators\SubContainerCreatorUtil.cs" />
     <Compile Include="Runtime\GuiRenderableManager.cs" />
     <Compile Include="Runtime\Kernels\Kernel.cs" />

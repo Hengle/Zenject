@@ -1,5 +1,8 @@
+using JetBrains.Annotations;
+
 namespace Zenject
 {
+    [MeansImplicitUse(ImplicitUseKindFlags.Assign)]
     public abstract class InjectAttributeBase : Zenject.Internal.PreserveAttribute
     {
         public bool Optional
